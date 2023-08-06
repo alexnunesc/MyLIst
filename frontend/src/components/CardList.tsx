@@ -14,7 +14,7 @@ export default function CardList(): JSX.Element {
       ...prevState,
       [name]: value,
     }));
-  }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,7 +25,7 @@ export default function CardList(): JSX.Element {
       ...addTask,
     };
 
-    setGetAllTasks([...getAllTasks, newTask]);
+    setGetAllTasks([...getAllTasks, newTask]); // Adiciona a nova task no array de tasks para renderizar na tela antes de enviar para o backend e assim evitar o delay de requisição e renderização na tela
     await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/addtask`, {
       method: 'POST',
       headers: {

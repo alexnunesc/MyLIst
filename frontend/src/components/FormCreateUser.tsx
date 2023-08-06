@@ -11,7 +11,6 @@ export default function FormCreateUser() {
 
   const router = useRouter();
 
-
   const validateForm = () => {
     const { email, password } = user;
     console.log(email, password);
@@ -24,7 +23,7 @@ export default function FormCreateUser() {
     event.preventDefault();
     const result = validateForm();
     if (result) {
-      await fetch(`${process.env.API_HOST}/registre`, {
+      await fetch(`${process.env.API_HOST}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

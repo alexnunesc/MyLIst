@@ -1,12 +1,33 @@
 import 'tailwindcss/tailwind.css';
 
-import { Task } from '../interfaces/iProvider';
+import { TasksContext } from '@/hooks/TasksProvider';
+import { useContext } from 'react';
+import { Task, TasksContextType } from '../interfaces/iProvider';
 
 interface CardProps {
   task: Task; // ao invés de item
 }
 
-const Card: React.FC<CardProps> = ({task}) => {  
+const Card: React.FC<CardProps> = ({task}) => {
+
+const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
+
+
+  // delete task
+  const deleteTask = async () => {
+    // delete task in frontend
+    const newTasks = getAllTasks.filter((item: Task) => item._id !== task._id);
+    setGetAllTasks(newTasks);
+    
+    // delete task in backend
+    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/deletetask/${task._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `${localStorage.getItem('token')}`,
+      },
+    });
+  };
 
   return (
     <div className='flex flex-col max-w-xl items-center justify-center p-5 gap-5'>
@@ -27,7 +48,7 @@ const Card: React.FC<CardProps> = ({task}) => {
 
           <div  className='flex items-center justify-center gap-3'>
             <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md'> Edit </button>
-            <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md'> Delete </button>
+            <button onClick={ deleteTask } className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md'> Delete </button>
             {/* button in progresso */}
             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'> Done </button>
           </div>
