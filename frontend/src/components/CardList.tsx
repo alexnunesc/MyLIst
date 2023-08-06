@@ -1,6 +1,5 @@
 'use client'
-import { getResultApi } from '@/utils/api';
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import 'tailwindcss/tailwind.css';
 import { TasksContext } from '../hooks/TasksProvider';
 import { Task, TasksContextType } from '../interfaces/iProvider';
@@ -8,8 +7,6 @@ import Card from './Card';
 
 export default function CardList(): JSX.Element {
   const { getAllTasks, setAddTask, addTask, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
-
-  const [shouldReload, setShouldReload] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -19,22 +16,17 @@ export default function CardList(): JSX.Element {
     }));
   }
 
-  // UseEffect para atualizar a página quando shouldReload mudar
-  useEffect(() => {
-    if (shouldReload) {
-      const task = async () => {
-        setGetAllTasks(await getResultApi());
-        setAddTask({ title: '', content: '' });
-      };
-      task();
-      setShouldReload(false); // Reseta o estado para evitar loop
-    }
-  }, [shouldReload, getAllTasks, setGetAllTasks ,setAddTask]);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    await fetch('http://localhost:3333/addtask', {
+    const newTask = {
+      userId: localStorage.getItem('userId') as string,
+      date: new Date().toISOString(),
+      ...addTask,
+    };
+
+    setGetAllTasks([...getAllTasks, newTask]);
+    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/addtask`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,9 +34,8 @@ export default function CardList(): JSX.Element {
       },
       body: JSON.stringify({...addTask}),
     });
-    setShouldReload(true);
   };
-  
+
   return (
     <div className="flex flex-col max-w-xl items-center justify-center p-5 gap-5">
       <form onSubmit={handleSubmit} method="POST" className="flex flex-col justify-center gap-2 w-full">

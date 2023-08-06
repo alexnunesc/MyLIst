@@ -18,18 +18,18 @@ export default class TaskController {
     return res.status(statusCode).json(message);
   }
 
-  // static async deleteTask(req: Request, res: Response) {
-  //   const { id } = req.params;
+  static async deleteTask(req: Request, res: Response) {
+    const { id } = req.params;
 
-  //   const token  = req.headers.authorization;
-  //   if(!token) {
-  //     return res.status(400).json({ message: 'Token not found' });
-  //   }
+    const token  = req.headers.authorization;
+    if(!token) {
+      return res.status(400).json({ message: 'Token not found' });
+    }
 
-  //   const { type, statusCode, message } = await TaskServices.deleteTask(id, token);
+    const { type, statusCode, message } = await TaskServices.deleteTask(id, token);
 
-  //   return res.status(statusCode).json(message);
-  // }
+    return res.status(statusCode).json(message);
+  }
 
   // static async updateTask(req: Request, res: Response) {
   //   const { id } = req.params;

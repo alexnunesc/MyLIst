@@ -29,7 +29,9 @@ export default function FormLogin() {
     event.preventDefault()
     const result = validateForm()
     if (result) {
-      const response = await fetch("http://localhost:3333/login", {
+      console.log(process.env.NEXT_PUBLIC_API_HOST);
+      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

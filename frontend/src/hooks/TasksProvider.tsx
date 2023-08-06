@@ -3,13 +3,14 @@ import { TasksProviderProps } from '@/types/ChildrenTypes';
 import { getResultApi } from '@/utils/api';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 
-interface Task {
-  title: string;
-  userId: string;
-  content: string;
-  _id: string;
-  date: string;
-}
+import { Task } from '../interfaces/iProvider';
+// interface Task {
+//   title: string;
+//   userId: string;
+//   content: string;
+//   _id?: string;
+//   date: string;
+// }
 
 const TasksContext = createContext({});
 

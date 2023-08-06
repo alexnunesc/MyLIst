@@ -18,35 +18,37 @@ export default class TaskServices {
     return {type: 'success', statusCode: 201, message: 'Task created'};
   }
 
-  // static async deleteTask(id: string, token: string) {
-  //   const decoded = funcToken.verifyJwt(token);
+  static async deleteTask(id: string, token: string) {
+    const decoded = funcToken.verifyJwt(token);
 
-  //   if(!decoded) {
-  //     return {type: 'error', statusCode: 400, message: 'Token not found'};
-  //   }
+    if(!decoded) {
+      return {type: 'error', statusCode: 400, message: 'Token not found'};
+    }
 
-  //   const user = await UserSchema.findById(decoded.id);
+    const user = await UserSchema.findById(decoded.id);
 
-  //   if(!user) {
-  //     return {type: 'error', statusCode: 400, message: 'User not found'};
-  //   }
+    if(!user) {
+      return {type: 'error', statusCode: 400, message: 'User not found'};
+    }
 
-  //   const task = user.tasks.find(task => task._id == id);
+    // const query = { _id: new ObjectId(id) }; // Convertendo o ObjectId
 
-  //   if(!task) {
-  //     return {type: 'error', statusCode: 400, message: 'Task not found'};
-  //   }
+    // const task = user.tasks.find((task) => task._id === query);
 
-  //   await UserSchema.updateOne({ _id: decoded.id }, {
-  //     $pull: {
-  //       tasks: {
-  //         _id: id
-  //       }
-  //     }
-  //   });
+    const task = await UserSchema.updateOne({ _id: decoded.id }, {
+      $pull: {
+        tasks: {
+          _id: id
+        }
+      }
+    });
 
-  //   return {type: 'success', statusCode: 200, message: 'Task deleted'};
-  // }
+    // if(!task.upsertedId) {
+    //   return {type: 'error', statusCode: 400, message: 'Task not found'};
+    // }
+
+    return {type: 'success', statusCode: 200, message: 'Task deleted'};
+  }
 
   // static async updateTask(id: string, title: string, content: string, token: string, date: Date) {
   //   const decoded = funcToken.verifyJwt(token);

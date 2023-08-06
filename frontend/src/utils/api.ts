@@ -7,7 +7,7 @@ interface Task {
 }
 
 export const getResultApi = async () => {
-  const response = await fetch("http://localhost:3333/tasks", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/tasks`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

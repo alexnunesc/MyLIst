@@ -9,6 +9,7 @@ interface IUser {
 }
 
 interface ITask {
+  _id?: any;
   title: string;
   content: string;
   userId: string;

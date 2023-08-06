@@ -24,7 +24,7 @@ export default function FormCreateUser() {
     event.preventDefault();
     const result = validateForm();
     if (result) {
-      await fetch("http://localhost:3333/registre", {
+      await fetch(`${process.env.API_HOST}/registre`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

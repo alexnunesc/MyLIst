@@ -1,12 +1,6 @@
 import 'tailwindcss/tailwind.css';
 
-interface Task {
-  title: string;
-  userId: string;
-  content: string;
-  _id: string;
-  date: string;
-}
+import { Task } from '../interfaces/iProvider';
 
 interface CardProps {
   task: Task; // ao invés de item
