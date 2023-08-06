@@ -31,19 +31,19 @@ export default class TaskController {
     return res.status(statusCode).json(message);
   }
 
-  // static async updateTask(req: Request, res: Response) {
-  //   const { id } = req.params;
-  //   const { title, content, date } = req.body;
+  static async updateTask(req: Request, res: Response) {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    
+    const token  = req.headers.authorization;
+    if(!token) {
+      return res.status(400).json({ message: 'Token not found' });
+    }
+    
+    const { type, statusCode, message } = await TaskServices.updateTask(id, title, content, token);
 
-  //   const token  = req.headers.authorization;
-  //   if(!token) {
-  //     return res.status(400).json({ message: 'Token not found' });
-  //   }
-
-  //   const { type, statusCode, message } = await TaskServices.updateTask(id, title, content, token, date);
-
-  //   return res.status(statusCode).json(message);
-  // }
+    return res.status(statusCode).json(message);
+  }
 
   static async getTasks(req: Request, res: Response) {
     const token  = req.headers.authorization;

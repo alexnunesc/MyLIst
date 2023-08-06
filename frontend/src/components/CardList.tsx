@@ -1,5 +1,6 @@
 'use client'
-import { ChangeEvent, useContext } from 'react';
+import { getResultApi } from '@/utils/api';
+import { ChangeEvent, useContext, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { TasksContext } from '../hooks/TasksProvider';
 import { Task, TasksContextType } from '../interfaces/iProvider';
@@ -16,6 +17,15 @@ export default function CardList(): JSX.Element {
     }));
   };
 
+  useEffect(() => {
+    const task = async () => {
+      const result = await getResultApi();
+      console.log('takkk', result);
+      setGetAllTasks(result);
+    };
+    task();
+  }, []);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -24,6 +34,8 @@ export default function CardList(): JSX.Element {
       date: new Date().toISOString(),
       ...addTask,
     };
+
+    setAddTask({ title: '', content: '' }); // Limpa os campos de input
 
     setGetAllTasks([...getAllTasks, newTask]); // Adiciona a nova task no array de tasks para renderizar na tela antes de enviar para o backend e assim evitar o delay de requisição e renderização na tela
     await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/addtask`, {

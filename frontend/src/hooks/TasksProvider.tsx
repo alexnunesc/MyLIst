@@ -1,7 +1,7 @@
 "use client"
 import { TasksProviderProps } from '@/types/ChildrenTypes';
-import { getResultApi } from '@/utils/api';
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+// import { getResultApi } from '@/utils/api';
+import React, { createContext, useMemo, useState } from 'react';
 
 import { Task } from '../interfaces/iProvider';
 // interface Task {
@@ -21,14 +21,14 @@ const TasksProvider: React.FC<TasksProviderProps> = ({ children }) => {
     content: '',
   });
 
-  useEffect(() => {
-    const task = async () => {
-      const result = await getResultApi();
-      console.log('takkk', result);
-      setGetAllTasks(result);
-    };
-    task();
-  }, []);
+  // useEffect(() => {
+  //   const task = async () => {
+  //     const result = await getResultApi();
+  //     console.log('takkk', result);
+  //     setGetAllTasks(result);
+  //   };
+  //   task();
+  // }, []);
 
   const contextValue = useMemo(() => ({
     getAllTasks,

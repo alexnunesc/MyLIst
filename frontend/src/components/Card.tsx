@@ -29,6 +29,30 @@ const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContext
     });
   };
 
+  // edit task
+  const editTask = async () => {
+
+    // edit task in backend
+    // const newTasks = getAllTasks.filter((item: Task) => item._id === task._id);
+    // setGetAllTasks(newTasks);
+
+    // edit task in frontend
+    
+    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/edittask/${task._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        title: task.title,
+        content: task.content,
+      }),
+    });
+
+  };
+
+
   return (
     <div className='flex flex-col max-w-xl items-center justify-center p-5 gap-5'>
       {/* <h1 className='font-bold text-xl text-sky-500'>TaskListed</h1> */}
@@ -47,7 +71,7 @@ const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContext
           </div>
 
           <div  className='flex items-center justify-center gap-3'>
-            <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md'> Edit </button>
+            <button onClick={ editTask } className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md'> Edit </button>
             <button onClick={ deleteTask } className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md'> Delete </button>
             {/* button in progresso */}
             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'> Done </button>
