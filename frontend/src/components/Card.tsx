@@ -13,12 +13,13 @@ const Card: React.FC<CardProps> = ({task}) => {
   
   const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
 
-
   // delete task
   const deleteTask = async () => {
     // delete task in frontend
+    // o erro mostrado no console no memento de adicionar uma nova task é por causa da linha abaixo
     const newTasks = getAllTasks.filter((item: Task) => item._id !== task._id);
     setGetAllTasks(newTasks);
+    console.log('task._id', task._id);
     
     // delete task in backend
     await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/deletetask/${task._id}`, {

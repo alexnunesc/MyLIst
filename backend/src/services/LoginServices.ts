@@ -1,11 +1,13 @@
 import { compareSync } from 'bcryptjs';
 import funcToken from '../auth/authJwt';
 import UserSchema from "../schemas/UserSchemas";
+const { ObjectId } = require('mongodb');
 
 export default class LoginServices {
   static async login(email: string, password: string) {
     // verify if user exists
     const user = await UserSchema.findOne({ email });
+    console.log('vwvw', user);
     
     if (!user) {
       return {
@@ -15,8 +17,9 @@ export default class LoginServices {
       };
     }
     
+    const query = {_id: new ObjectId(user._id)}; // Convertendo o ObjectId
     // create token.
-    const token = funcToken.createAuthJwt({ name: user.name, email });
+    const token = funcToken.createAuthJwt({_id: query._id, email });
 
     // verify password
     const passwordMatch = compareSync(password, user.password);
@@ -31,6 +34,9 @@ export default class LoginServices {
 
     // remove password from user object
     const { password: _, ...userWithoutPassword } = user.toObject();
+
+    console.log('userWithoutPassword', userWithoutPassword._id);
+    
 
     return { type: 'success', statusCode: 200, message: 'Login success', data: userWithoutPassword, token };
   }

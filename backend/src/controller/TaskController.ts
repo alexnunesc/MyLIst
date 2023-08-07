@@ -19,9 +19,11 @@ export default class TaskController {
   }
 
   static async deleteTask(req: Request, res: Response) {
-    const { id } = req.params;
+    const { id } = req.params;  
 
     const token  = req.headers.authorization;
+    console.log('token', token);
+    
     if(!token) {
       return res.status(400).json({ message: 'Token not found' });
     }

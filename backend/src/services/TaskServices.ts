@@ -21,12 +21,13 @@ export default class TaskServices {
 
   static async deleteTask(id: string, token: string) {
     const decoded = funcToken.verifyJwt(token);
-
+    console.log('decoded', decoded);
+  
     if(!decoded) {
       return {type: 'error', statusCode: 400, message: 'Token not found'};
     }
 
-    const user = await UserSchema.findById(decoded.id);
+    const user = await UserSchema.findById(decoded._id);
 
     if(!user) {
       return {type: 'error', statusCode: 400, message: 'User not found'};
@@ -36,7 +37,7 @@ export default class TaskServices {
 
     // const task = user.tasks.find((task) => task._id === query);
 
-    const task = await UserSchema.updateOne({ _id: decoded.id }, {
+    const task = await UserSchema.updateOne({ _id: decoded._id }, {
       $pull: {
         tasks: {
           _id: id
