@@ -8,6 +8,7 @@ import Card from './Card';
 
 export default function CardList(): JSX.Element {
   const { getAllTasks, setAddTask, addTask, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
+  
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -80,8 +81,8 @@ export default function CardList(): JSX.Element {
       </form>
 
       {/* Slice criar uma copia do array e o reverse reverte ele */}
-      {getAllTasks?.slice().reverse().map((task: Task) => (
-        <Card key={task._id} task={task} />
+      {getAllTasks?.slice().reverse().map((task: Task, i) => (
+        task && <Card key={task._id + i} task={task} />
       ))}
     </div>
   );

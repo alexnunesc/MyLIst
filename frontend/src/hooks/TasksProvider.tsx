@@ -20,13 +20,16 @@ const TasksProvider: React.FC<TasksProviderProps> = ({ children }) => {
     title: '',
     content: '',
   });
+  const [editBol, setEditBol] = useState(false)
 
   const contextValue = useMemo(() => ({
     getAllTasks,
     setGetAllTasks,
     addTask,
     setAddTask,
-  }), [getAllTasks, addTask,]);
+    editBol,
+    setEditBol,
+  }), [getAllTasks, addTask, editBol]);
   
   return (
     <TasksContext.Provider value={contextValue}>

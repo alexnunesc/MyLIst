@@ -6,7 +6,7 @@ import { EditedTask, Task, TasksContextType } from '../interfaces/iProvider';
 
 
 export default function CardEditTask({ task }: { task: Task }): JSX.Element {
-  const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
+  const { getAllTasks, setGetAllTasks, editBol, setEditBol } = useContext(TasksContext) as TasksContextType;
 
   const [editaTask, setEditaTask] = useState<EditedTask>({
     title: task.title,
@@ -22,7 +22,7 @@ export default function CardEditTask({ task }: { task: Task }): JSX.Element {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();    
+    event.preventDefault();
 
     const newTask = {
       userId: localStorage.getItem('userId') as string,
@@ -37,6 +37,7 @@ export default function CardEditTask({ task }: { task: Task }): JSX.Element {
         // const getId = getAllTasks[i]._id;
         return getAllTasks[i] = newTask;
       }
+      return item;
     });
     setGetAllTasks(newTasks);
 
@@ -54,6 +55,7 @@ export default function CardEditTask({ task }: { task: Task }): JSX.Element {
     });
 
     setEditaTask({ title: '', content: '' }); // Limpa os campos de input
+    setEditBol(false); // fecha o modal
   };
 
   return (

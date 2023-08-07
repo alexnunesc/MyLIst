@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 
 import { TasksContext } from '@/hooks/TasksProvider';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Task, TasksContextType } from '../interfaces/iProvider';
 import CardEditTask from './CardEditTask';
 
@@ -10,8 +10,8 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({task}) => {
-  const [editaTask, setEditaTask] = useState(false)
-  const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
+  // const [editaTask, setEditaTask] = useState(false)
+  const { getAllTasks, setGetAllTasks, editBol, setEditBol } = useContext(TasksContext) as TasksContextType;
 
   // delete task
   const deleteTask = async () => {
@@ -32,7 +32,7 @@ const Card: React.FC<CardProps> = ({task}) => {
 
   // edit task
   const editTask = async () => {
-    setEditaTask(true)
+    setEditBol(true)
   };
 
   return (
@@ -62,7 +62,7 @@ const Card: React.FC<CardProps> = ({task}) => {
         </div>
 
         {
-          editaTask ? <CardEditTask task={task} /> : null
+          editBol ? <CardEditTask task={task} /> : null
         }
 
     </div>

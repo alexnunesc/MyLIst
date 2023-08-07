@@ -15,6 +15,8 @@ export interface TasksContextType {
   getAllTasks: Task[];
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   setAddTask: React.Dispatch<React.SetStateAction<{ title: '', content: '' }>>;
+  editBol: boolean;
+  setEditBol: React.Dispatch<React.SetStateAction<boolean>>;
   // const [addTask, setAddTask] = useState<{ title: string; content: string }>({ title: '', content: '' });
 
   addTask: { title: string; content: string };
