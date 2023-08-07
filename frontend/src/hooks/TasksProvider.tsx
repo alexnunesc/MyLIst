@@ -21,15 +21,6 @@ const TasksProvider: React.FC<TasksProviderProps> = ({ children }) => {
     content: '',
   });
 
-  // useEffect(() => {
-  //   const task = async () => {
-  //     const result = await getResultApi();
-  //     console.log('takkk', result);
-  //     setGetAllTasks(result);
-  //   };
-  //   task();
-  // }, []);
-
   const contextValue = useMemo(() => ({
     getAllTasks,
     setGetAllTasks,

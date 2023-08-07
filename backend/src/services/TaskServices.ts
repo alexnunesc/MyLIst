@@ -21,7 +21,6 @@ export default class TaskServices {
 
   static async deleteTask(id: string, token: string) {
     const decoded = funcToken.verifyJwt(token);
-    console.log('decoded', decoded);
   
     if(!decoded) {
       return {type: 'error', statusCode: 400, message: 'Token not found'};

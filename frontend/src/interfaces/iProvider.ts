@@ -11,7 +11,7 @@ export interface EditedTask {
   content: string;
 }
 export interface TasksContextType {
-  setGetAllTasks: React.Dispatch<React.SetStateAction<Task[] | { title: string; content: string }>>;
+  setGetAllTasks: React.Dispatch<React.SetStateAction<Task[] | { title: string; content: string } | any>>;
   getAllTasks: Task[];
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   setAddTask: React.Dispatch<React.SetStateAction<{ title: '', content: '' }>>;

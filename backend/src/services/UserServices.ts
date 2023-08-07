@@ -8,14 +8,7 @@ const { ObjectId } = require('mongodb');
 
 export default class UserServices {
   static async signup(name: string, email: string, password: string) {
-    // verificar se o usuário já existe por meio do email e senha.
-    // const userExiste =  
-
-    // const userExiste = await UserSchema.findOne({ email });
-    // console.log(userExiste, 'user');
-
-    const userExiste = await UserSchema.findOne({ email });
-    console.log('2222', userExiste);    
+    const userExiste = await UserSchema.findOne({ email });   
     
     if(userExiste) return {type: 'error', statusCode: 400, message: 'User already exists!'};
   
@@ -33,8 +26,7 @@ export default class UserServices {
     });
 
     const query = {_id: new ObjectId(user._id)}; // Convertendo o ObjectId
-    console.log('query', query);
-    
+
     // create token.
     const token = funcToken.createAuthJwt({_id: query._id, email });
 

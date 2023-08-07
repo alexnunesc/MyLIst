@@ -22,7 +22,6 @@ export default class TaskController {
     const { id } = req.params;  
 
     const token  = req.headers.authorization;
-    console.log('token', token);
     
     if(!token) {
       return res.status(400).json({ message: 'Token not found' });

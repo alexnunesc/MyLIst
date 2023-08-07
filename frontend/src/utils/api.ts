@@ -18,11 +18,7 @@ export const getResultApi = async () => {
   const data = await response.json();
 
   const tasks = data?.filter((item: Task) => {
-    // console.log(item.userId);
-    // console.log(localStorage.getItem("userId"));
     return item.userId === localStorage.getItem("userId");
   });
-  console.log('apifunction', tasks);
   return tasks;
-  // setTasks(tasks);
 };

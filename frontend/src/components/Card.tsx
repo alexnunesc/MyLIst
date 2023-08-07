@@ -10,7 +10,6 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({task}) => {
-  // console.log('task', task);
   const [editaTask, setEditaTask] = useState(false)
   const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
 
@@ -20,7 +19,6 @@ const Card: React.FC<CardProps> = ({task}) => {
     // o erro mostrado no console no memento de adicionar uma nova task é por causa da linha abaixo
     const newTasks = getAllTasks.filter((item: Task) => item._id !== task._id);
     setGetAllTasks(newTasks);
-    console.log('task._id', task._id);
     
     // delete task in backend
     await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/deletetask/${task._id}`, {
@@ -34,21 +32,7 @@ const Card: React.FC<CardProps> = ({task}) => {
 
   // edit task
   const editTask = async () => {
-
     setEditaTask(true)
-    // // edit task in backend
-    // await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/edittask/${task._id}`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'authorization': `${localStorage.getItem('token')}`,
-    //   },
-    //   body: JSON.stringify({
-    //     title: task.title,
-    //     content: task.content,
-    //   }),
-    // });
-
   };
 
   return (

@@ -22,24 +22,24 @@ export default function CardEditTask({ task }: { task: Task }): JSX.Element {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault();    
 
-    // const newTask = {
-    //   userId: localStorage.getItem('userId') as string,
-    //   date: new Date().toISOString(),
-    //   ...editaTask,
-    // };
+    const newTask = {
+      userId: localStorage.getItem('userId') as string,
+      date: new Date().toISOString(),
+      ...editaTask,
+      _id: task._id,
+    };
 
-    // // edit task in frontend
-    // const newTasks = getAllTasks.map((item: Task) => {
-    //   if (item._id === task._id) {
-    //     return newTask;
-    //   }
-    // });
-    // setGetAllTasks(newTasks);
-    // console.log('editaTask', editaTask);
-    
-    
+    // edit task in frontend
+    const newTasks = getAllTasks.map((item: Task, i) => {
+      if (item._id === task._id) {
+        // const getId = getAllTasks[i]._id;
+        return getAllTasks[i] = newTask;
+      }
+    });
+    setGetAllTasks(newTasks);
+
     // edit task in backend
     await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/edittask/${task._id}`, {
       method: 'PUT',

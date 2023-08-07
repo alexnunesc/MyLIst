@@ -21,7 +21,6 @@ const createAuthJwt = (user: UserTokenLogin) => {
 };
 
 const verifyJwt = (token: string) => {
-  // console.log(token);
   const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as unknown as {[x: string]: any; email: string};
   return decoded;
 };

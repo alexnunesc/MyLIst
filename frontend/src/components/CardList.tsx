@@ -20,7 +20,6 @@ export default function CardList(): JSX.Element {
   useEffect(() => {
     const task = async () => {
       const result = await getResultApi();
-      console.log('takkk', result);
       setGetAllTasks(result);
     };
     task();

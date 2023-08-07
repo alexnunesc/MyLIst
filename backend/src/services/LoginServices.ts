@@ -7,7 +7,6 @@ export default class LoginServices {
   static async login(email: string, password: string) {
     // verify if user exists
     const user = await UserSchema.findOne({ email });
-    console.log('vwvw', user);
     
     if (!user) {
       return {
@@ -33,10 +32,7 @@ export default class LoginServices {
     }
 
     // remove password from user object
-    const { password: _, ...userWithoutPassword } = user.toObject();
-
-    console.log('userWithoutPassword', userWithoutPassword._id);
-    
+    const { password: _, ...userWithoutPassword } = user.toObject();    
 
     return { type: 'success', statusCode: 200, message: 'Login success', data: userWithoutPassword, token };
   }

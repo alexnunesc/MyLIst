@@ -13,7 +13,6 @@ export default function FormCreateUser() {
 
   const validateForm = () => {
     const { email, password } = user;
-    console.log(email, password);
     
     const isValid = email.length > 2 && password.length > 2;
     return isValid;
@@ -32,8 +31,6 @@ export default function FormCreateUser() {
       });
 
       const result = await response.json();
-      console.log(result, "result");
-      
 
       const receivedUserId = result.userWithoutPassword._id;
       localStorage.setItem("userId", receivedUserId);
