@@ -4,6 +4,7 @@ export interface Task {
   content: string;
   _id?: any;
   date: string;
+  isEditing?: boolean;
 }
 
 export interface EditedTask {

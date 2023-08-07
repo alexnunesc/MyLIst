@@ -13,6 +13,8 @@ const Card: React.FC<CardProps> = ({task}) => {
   // const [editaTask, setEditaTask] = useState(false)
   const { getAllTasks, setGetAllTasks, editBol, setEditBol } = useContext(TasksContext) as TasksContextType;
 
+  // const [isEditing, setIsEditing] = useState(false);
+
   // delete task
   const deleteTask = async () => {
     // delete task in frontend
@@ -32,6 +34,10 @@ const Card: React.FC<CardProps> = ({task}) => {
 
   // edit task
   const editTask = async () => {
+    const updatedTasks = getAllTasks.map((item: Task) =>
+      item._id === task._id ? { ...item, isEditing: true } : item
+    );
+    setGetAllTasks(updatedTasks);
     setEditBol(true)
   };
 
