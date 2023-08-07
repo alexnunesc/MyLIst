@@ -9,8 +9,9 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({task}) => {
-
-const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
+  // console.log('task', task);
+  
+  const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
 
 
   // delete task

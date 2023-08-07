@@ -16,7 +16,7 @@ export default class LoginServices {
     }
     
     // create token.
-    const token = funcToken.createAuthJwt({ id: user.id, name: user.name, email });
+    const token = funcToken.createAuthJwt({ name: user.name, email });
 
     // verify password
     const passwordMatch = compareSync(password, user.password);

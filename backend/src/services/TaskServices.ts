@@ -71,9 +71,6 @@ export default class TaskServices {
       return {type: 'error', statusCode: 400, message: 'Task not found'};
     }
 
-    console.log('service', id, title, content, token);
-    
-
     await UserSchema.updateOne({ _id: decoded.id, 'tasks._id': id }, {
       $set: {
         'tasks.$.title': title,

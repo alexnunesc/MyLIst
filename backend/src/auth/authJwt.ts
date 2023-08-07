@@ -3,7 +3,6 @@ import * as jwt from 'jsonwebtoken';
 const JWT_SECRET: jwt.Secret = process.env.JWT_SECRET || 'secret';
 
 export type UserTokenLogin = {
-  id: string;
   name: string;
   email: string;
 };
@@ -11,7 +10,6 @@ export type UserTokenLogin = {
 const createAuthJwt = (user: UserTokenLogin) => {
   const token = jwt.sign(
     {
-      id : user.id,
       name: user.name,
       email: user.email
     }, JWT_SECRET,
@@ -19,13 +17,6 @@ const createAuthJwt = (user: UserTokenLogin) => {
     );
   return token;
 };
-
-type Decoded = {
-  name: string;
-  email: string;
-  iat: number;
-  exp: number;
-}
 
 const verifyJwt = (token: string) => {
   // console.log(token);

@@ -23,13 +23,22 @@ export default function FormCreateUser() {
     event.preventDefault();
     const result = validateForm();
     if (result) {
-      await fetch(`${process.env.API_HOST}/signup`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify({...user}),
       });
+
+      const result = await response.json();
+      console.log(result, "result");
+      
+
+      const receivedUserId = result.userWithoutPassword._id;
+      localStorage.setItem("userId", receivedUserId);
+
+      localStorage.setItem("token", result.token);
       return router.push("/list");
     }
   };
