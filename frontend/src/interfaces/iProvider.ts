@@ -6,6 +6,10 @@ export interface Task {
   date: string;
 }
 
+export interface EditedTask {
+  title: string;
+  content: string;
+}
 export interface TasksContextType {
   setGetAllTasks: React.Dispatch<React.SetStateAction<Task[] | { title: string; content: string }>>;
   getAllTasks: Task[];

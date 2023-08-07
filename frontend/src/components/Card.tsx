@@ -1,8 +1,9 @@
 import 'tailwindcss/tailwind.css';
 
 import { TasksContext } from '@/hooks/TasksProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Task, TasksContextType } from '../interfaces/iProvider';
+import CardEditTask from './CardEditTask';
 
 interface CardProps {
   task: Task; // ao invés de item
@@ -10,7 +11,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({task}) => {
   // console.log('task', task);
-  
+  const [editaTask, setEditaTask] = useState(false)
   const { getAllTasks, setGetAllTasks } = useContext(TasksContext) as TasksContextType;
 
   // delete task
@@ -34,26 +35,21 @@ const Card: React.FC<CardProps> = ({task}) => {
   // edit task
   const editTask = async () => {
 
-    // edit task in backend
-    // const newTasks = getAllTasks.filter((item: Task) => item._id === task._id);
-    // setGetAllTasks(newTasks);
-
-    // edit task in frontend
-    
-    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/edittask/${task._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': `${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({
-        title: task.title,
-        content: task.content,
-      }),
-    });
+    setEditaTask(true)
+    // // edit task in backend
+    // await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/edittask/${task._id}`, {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'authorization': `${localStorage.getItem('token')}`,
+    //   },
+    //   body: JSON.stringify({
+    //     title: task.title,
+    //     content: task.content,
+    //   }),
+    // });
 
   };
-
 
   return (
     <div className='flex flex-col max-w-xl items-center justify-center p-5 gap-5'>
@@ -81,7 +77,10 @@ const Card: React.FC<CardProps> = ({task}) => {
 
         </div>
 
-      {/* ))} */}
+        {
+          editaTask ? <CardEditTask task={task} /> : null
+        }
+
     </div>
   );
 }

@@ -59,7 +59,7 @@ export default class TaskServices {
       return {type: 'error', statusCode: 400, message: 'Token not found'};
     }
 
-    const user = await UserSchema.findById(decoded.id);
+    const user = await UserSchema.findById(decoded._id);
 
     if(!user) {
       return {type: 'error', statusCode: 400, message: 'User not found'};
@@ -72,7 +72,7 @@ export default class TaskServices {
       return {type: 'error', statusCode: 400, message: 'Task not found'};
     }
 
-    await UserSchema.updateOne({ _id: decoded.id, 'tasks._id': id }, {
+    await UserSchema.updateOne({ _id: decoded._id, 'tasks._id': id }, {
       $set: {
         'tasks.$.title': title,
         'tasks.$.content': content,
